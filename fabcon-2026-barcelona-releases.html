@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="A shareable guide to Microsoft Fabric and SQL announcements from FabCon and SQLCon Europe 2026 in Barcelona.">
+  <meta name="theme-color" content="#0b033c">
+  <title>FabCon Barcelona 2026 | Release Guide</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme =
+        param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      /* FABCON & SQLCON brand: deep navy masthead, teal (FABCON) + blue (SQLCON) accents */
+      --cp-navy: #0b033c;
+      --cp-navy-deep: #05011f;
+      --cp-navy-mid: #170f57;
+      --cp-hero-text: #f1f1f1;
+      --cp-hero-text-soft: rgba(241, 241, 241, 0.72);
+      --cp-hero-border: rgba(241, 241, 241, 0.28);
+      --cp-hero-teal: #2fe1c4;
+      --cp-hero-blue: #4d7fff;
+      --cp-bg: #eef1f8;
+      --cp-bg-elevated: #f7f9fc;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #eef1f8;
+      --cp-border: #dde3ee;
+      --cp-border-strong: #aab4c8;
+      --cp-text: #14183a;
+      --cp-text-muted: #545b7a;
+      --cp-text-soft: #6b7396;
+      --cp-accent: #0d074f;
+      --cp-accent-hover: #170f57;
+      --cp-accent-soft: rgba(13, 7, 79, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #0f9a85;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #1243aa;
+      --cp-shadow: 0 18px 48px rgba(11, 3, 60, 0.14);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(18, 67, 170, 0.1);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #100c33;
+      --cp-bg-elevated: #150e42;
+      --cp-surface: #1a1350;
+      --cp-surface-soft: #20185c;
+      --cp-border: #332a72;
+      --cp-border-strong: #4b3e94;
+      --cp-text: #e9eaf5;
+      --cp-text-muted: #a8acd6;
+      --cp-text-soft: #8b8fc2;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #2fe1c4;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #6fa0ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.4);
+      --cp-overlay: rgba(16, 12, 51, 0.88);
+      --cp-panel: rgba(26, 19, 80, 0.72);
+      --cp-panel-strong: rgba(26, 19, 80, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.06);
+      --cp-highlight: rgba(111, 160, 255, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 9rem; }
+    body {
+      margin: 0;
+      background: var(--cp-bg);
+      color: var(--cp-text);
+      font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.55;
+    }
+    a { color: var(--cp-link); }
+    button, input, select { font: inherit; }
+    button, select { cursor: pointer; }
+    :focus-visible { outline: 3px solid var(--cp-link); outline-offset: 3px; }
+    .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .event-bar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 0;
+      color: var(--cp-hero-text);
+    }
+    .event-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      color: var(--cp-hero-text);
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-decoration: none;
+    }
+    .event-brand strong {
+      color: var(--cp-hero-blue);
+      font-size: 1.45rem;
+      letter-spacing: -.04em;
+    }
+    .event-brand strong:first-child { color: var(--cp-hero-teal); }
+    .event-brand span { color: var(--cp-hero-text); }
+    .event-nav { display: flex; gap: 22px; align-items: center; }
+    .event-nav a {
+      color: var(--cp-hero-text);
+      font-size: .76rem;
+      font-weight: 750;
+      letter-spacing: .08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .event-nav a:hover { color: var(--cp-hero-blue); }
+    /* Fixed FABCON navy masthead — brand identity stays constant across light/dark toggle */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 0 0 88px;
+      border-bottom: 1px solid var(--cp-navy-mid);
+      background: radial-gradient(120% 160% at 82% -10%, var(--cp-navy-mid) 0%, var(--cp-navy) 42%, var(--cp-navy-deep) 100%);
+      color: var(--cp-hero-text);
+    }
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border: 2px solid var(--cp-hero-blue);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: .85;
+    }
+    .hero::before {
+      width: 560px;
+      height: 560px;
+      right: -300px;
+      top: -90px;
+      box-shadow:
+        0 0 0 24px var(--cp-navy),
+        0 0 0 26px var(--cp-hero-teal),
+        0 0 0 50px var(--cp-navy),
+        0 0 0 52px var(--cp-hero-blue);
+    }
+    .hero::after {
+      width: 320px;
+      height: 320px;
+      left: -245px;
+      bottom: -250px;
+      box-shadow:
+        0 0 0 18px var(--cp-navy),
+        0 0 0 20px var(--cp-hero-teal),
+        0 0 0 38px var(--cp-navy),
+        0 0 0 40px var(--cp-hero-blue);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding-top: 62px;
+    }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      color: var(--cp-hero-blue);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 32px; height: 3px; background: var(--cp-hero-blue); }
+    h1 {
+      max-width: 890px;
+      margin: 0;
+      color: var(--cp-hero-text);
+      font-size: clamp(3rem, 8vw, 6.7rem);
+      font-weight: 800;
+      line-height: .88;
+      letter-spacing: -.065em;
+      text-transform: uppercase;
+    }
+    h1 span { color: var(--cp-hero-teal); }
+    .hero-copy { max-width: 700px; margin: 28px 0 0; color: var(--cp-hero-text-soft); font-size: 1.15rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-top: 28px; color: var(--cp-hero-text-soft); font-size: .92rem; }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+    .hero-meta span::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cp-hero-blue); }
+    .hero-actions { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 15px;
+      border: 1px solid var(--cp-accent);
+      border-radius: .625rem;
+      background: var(--cp-accent);
+      color: var(--cp-accent-fg);
+      font-weight: 650;
+      text-decoration: none;
+    }
+    .button:hover { background: var(--cp-accent-hover); }
+    .button.secondary { background: var(--cp-surface); color: var(--cp-text); border-color: var(--cp-border); }
+    .button.secondary:hover { background: var(--cp-surface-soft); }
+    .hero .button {
+      border-color: var(--cp-hero-teal);
+      background: var(--cp-hero-teal);
+      color: var(--cp-navy-deep);
+      text-transform: uppercase;
+      letter-spacing: .045em;
+    }
+    .hero .button:hover { border-color: var(--cp-hero-blue); background: var(--cp-hero-blue); color: var(--cp-hero-text); }
+    .hero .button.secondary {
+      border-color: var(--cp-hero-border);
+      background: transparent;
+      color: var(--cp-hero-text);
+    }
+    .hero .button.secondary:hover { border-color: var(--cp-hero-text); background: var(--cp-sheen); }
+    .overview { position: relative; z-index: 3; margin-top: -42px; padding: 0 0 8px; }
+    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .stat {
+      padding: 20px;
+      border-top: 5px solid var(--cp-link);
+      border: 1px solid var(--cp-border);
+      border-top: 5px solid var(--cp-link);
+      border-radius: 16px;
+      background: var(--cp-surface);
+      box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border);
+    }
+    .stat:nth-child(odd) { border-top-color: var(--cp-success); }
+    .stat strong { display: block; font-size: 2rem; line-height: 1; letter-spacing: -.04em; }
+    .stat span { display: block; margin-top: 8px; color: var(--cp-text-muted); font-size: .84rem; }
+    .controls-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--cp-border);
+      background: var(--cp-overlay);
+      backdrop-filter: blur(14px);
+    }
+    .controls { display: grid; grid-template-columns: minmax(220px, 1fr) auto auto auto; gap: 10px; }
+    .search-wrap { position: relative; }
+    .search-wrap span { position: absolute; left: 13px; top: 50%; color: var(--cp-text-muted); transform: translateY(-50%); pointer-events: none; }
+    input[type="search"], select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--cp-border);
+      border-radius: .625rem;
+      background: var(--cp-surface);
+      color: var(--cp-text);
+    }
+    input[type="search"] { padding: 9px 13px 9px 38px; }
+    select { padding: 9px 34px 9px 12px; }
+    .view-toggle { display: flex; overflow: hidden; border: 1px solid var(--cp-border); border-radius: .625rem; background: var(--cp-surface); }
+    .view-toggle button { min-width: 42px; border: 0; background: transparent; color: var(--cp-text-muted); }
+    .view-toggle button + button { border-left: 1px solid var(--cp-border); }
+    .view-toggle button[aria-pressed="true"] { background: var(--cp-surface-soft); color: var(--cp-link); }
+    .results-bar { display: flex; justify-content: space-between; gap: 16px; align-items: end; padding: 36px 0 16px; }
+    .results-bar h2 { margin: 0; font-size: 2rem; font-weight: 800; letter-spacing: -.04em; text-transform: uppercase; }
+    .results-bar p { margin: 4px 0 0; color: var(--cp-text-muted); }
+    .legend { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: fit-content;
+      padding: 4px 9px;
+      border: 1px solid var(--cp-border);
+      border-radius: 999px;
+      background: var(--cp-surface-soft);
+      color: var(--cp-text-soft);
+      font-size: .73rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cp-border-strong); }
+    .status.ga::before { background: var(--cp-success); }
+    .status.preview::before { background: var(--cp-warning); }
+    .status.soon::before { background: var(--cp-link); }
+    .status.announced::before { background: var(--cp-success); }
+    .release-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; padding-bottom: 54px; }
+    .release-grid.list { grid-template-columns: 1fr; }
+    .card {
+      display: flex;
+      min-height: 100%;
+      flex-direction: column;
+      padding: 22px;
+      border: 1px solid var(--cp-border);
+      border-radius: 16px;
+      background: var(--cp-surface);
+      box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border);
+    }
+    .card:hover { border-color: var(--cp-link); }
+    .card:nth-child(4n + 2):hover,
+    .card:nth-child(4n + 3):hover { border-color: var(--cp-success); }
+    .card-top { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; }
+    .category { color: var(--cp-link); font-size: .78rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+    .card:nth-child(4n + 2) .category,
+    .card:nth-child(4n + 3) .category { color: var(--cp-success); }
+    .card h3 { margin: 9px 0 10px; font-size: 1.28rem; line-height: 1.2; letter-spacing: -.025em; }
+    .summary { margin: 0; color: var(--cp-text-soft); }
+    .details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 18px 0;
+      padding: 14px 0;
+      border-top: 1px solid var(--cp-border);
+      border-bottom: 1px solid var(--cp-border);
+    }
+    .details strong { display: block; margin-bottom: 3px; font-size: .76rem; letter-spacing: .05em; text-transform: uppercase; }
+    .details span { color: var(--cp-text-muted); font-size: .87rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+    .tag { padding: 3px 8px; border-radius: 6px; background: var(--cp-surface-soft); color: var(--cp-text-muted); font-size: .76rem; }
+    .card-links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: auto; }
+    .card-links a { font-size: .88rem; font-weight: 650; text-underline-offset: 3px; }
+    .empty { grid-column: 1 / -1; padding: 70px 20px; border: 1px dashed var(--cp-border-strong); border-radius: 16px; text-align: center; color: var(--cp-text-muted); }
+    .source-section {
+      padding: 58px 0;
+      border-top: 1px solid var(--cp-navy-mid);
+      background: linear-gradient(180deg, var(--cp-navy) 0%, var(--cp-navy-deep) 100%);
+      color: var(--cp-hero-text);
+    }
+    .source-section h2 { margin: 0 0 8px; color: var(--cp-hero-text); font-size: 1.8rem; letter-spacing: -.03em; }
+    .source-section > .shell > p { max-width: 760px; margin: 0 0 24px; color: var(--cp-hero-text-soft); }
+    .sources { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .source-card {
+      padding: 18px;
+      border: 1px solid var(--cp-hero-border);
+      border-radius: 16px;
+      background: rgba(241, 241, 241, 0.06);
+      color: var(--cp-hero-text);
+      text-decoration: none;
+    }
+    .source-card:hover { border-color: var(--cp-hero-blue); background: rgba(241, 241, 241, 0.1); }
+    .source-card:nth-child(even):hover { border-color: var(--cp-hero-teal); }
+    .source-card strong { display: block; margin-bottom: 5px; }
+    .source-card span { color: var(--cp-hero-text-soft); font-size: .86rem; }
+    footer { padding: 24px 0 44px; background: var(--cp-bg-elevated); color: var(--cp-text-muted); font-size: .84rem; }
+    .footer-row { display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid var(--cp-border); padding-top: 22px; }
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 30;
+      padding: 10px 14px;
+      border: 1px solid var(--cp-border);
+      border-radius: .625rem;
+      background: var(--cp-panel-strong);
+      color: var(--cp-text);
+      box-shadow: var(--cp-shadow);
+      transform: translateY(150%);
+      transition: transform .2s ease;
+    }
+    .toast.show { transform: translateY(0); }
+    @media (max-width: 880px) {
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+      .controls { grid-template-columns: 1fr 1fr; }
+      .search-wrap { grid-column: 1 / -1; }
+      .sources { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 660px) {
+      .shell { width: min(100% - 28px, 1180px); }
+      .event-bar { padding: 18px 0; }
+      .event-brand span, .event-nav a:not(:last-child) { display: none; }
+      .event-nav { gap: 0; }
+      .hero { padding-bottom: 70px; }
+      .hero::before, .hero::after { opacity: .35; }
+      .hero-content { padding-top: 42px; }
+      h1 { font-size: clamp(3.15rem, 17vw, 5rem); }
+      .controls { grid-template-columns: 1fr; }
+      .search-wrap { grid-column: auto; }
+      .view-toggle { display: none; }
+      .results-bar { align-items: flex-start; flex-direction: column; }
+      .legend { justify-content: flex-start; }
+      .release-grid { grid-template-columns: 1fr; }
+      .details { grid-template-columns: 1fr; }
+      .footer-row { flex-direction: column; }
+    }
+    @media print {
+      .hero-actions, .controls-wrap, .view-toggle, .toast { display: none; }
+      .hero { padding: 24px 0; }
+      .release-grid { grid-template-columns: 1fr 1fr; }
+      .card { break-inside: avoid; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .toast { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="shell event-bar">
+      <a class="event-brand" href="https://fabriccon.com/" target="_blank" rel="noopener">
+        <strong>FABCON</strong><span>×</span><strong>SQLCON</strong>
+      </a>
+      <nav class="event-nav" aria-label="Event links">
+        <a href="#sources">Sources</a>
+        <a href="https://fabriccon.com/" target="_blank" rel="noopener">Conference site ↗</a>
+      </nav>
+    </div>
+    <div class="shell hero-content">
+      <p class="eyebrow">Microsoft Fabric Community Conference Europe</p>
+      <h1>Barcelona <span>2026</span><br>release guide</h1>
+      <p class="hero-copy">The complete field guide to the Microsoft Fabric, Power BI, OneLake, AI, platform, and SQL innovations announced at FABCON &amp; SQLCON Europe.</p>
+      <div class="hero-meta">
+        <span>Barcelona, Spain</span>
+        <span>September 28–October 1, 2026</span>
+        <span>Last updated October 2, 2026</span>
+      </div>
+      <div class="hero-actions">
+        <a class="button" href="https://aka.ms/FabCon-SQLCon-Barcelona" target="_blank" rel="noopener">Official announcement ↗</a>
+        <button class="button secondary" id="shareButton" type="button">Copy page link</button>
+        <button class="button secondary" type="button" onclick="window.print()">Print / save PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="overview shell" aria-label="Release overview">
+    <div class="stat-grid" id="stats"></div>
+  </section>
+
+  <div class="controls-wrap">
+    <div class="controls shell" role="search">
+      <label class="search-wrap">
+        <span aria-hidden="true">⌕</span>
+        <input id="search" type="search" placeholder="Search features, products, or use cases…" aria-label="Search releases">
+      </label>
+      <select id="category" aria-label="Filter by category">
+        <option value="all">All categories</option>
+      </select>
+      <select id="status" aria-label="Filter by availability">
+        <option value="all">All availability</option>
+        <option value="ga">Generally available</option>
+        <option value="preview">Preview</option>
+        <option value="soon">Coming soon</option>
+        <option value="announced">Announced</option>
+      </select>
+      <div class="view-toggle" aria-label="Display style">
+        <button id="gridView" type="button" aria-label="Grid view" aria-pressed="true">▦</button>
+        <button id="listView" type="button" aria-label="List view" aria-pressed="false">☰</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="shell">
+    <div class="results-bar">
+      <div>
+        <h2>Announcements</h2>
+        <p id="resultCount" aria-live="polite"></p>
+      </div>
+      <div class="legend" aria-label="Availability legend">
+        <span class="status ga">GA</span>
+        <span class="status preview">Preview</span>
+        <span class="status soon">Coming soon</span>
+        <span class="status announced">Announced</span>
+      </div>
+    </div>
+    <div class="release-grid" id="releaseGrid"></div>
+  </main>
+
+  <section class="source-section" id="sources">
+    <div class="shell">
+      <h2>Official sources and deeper reading</h2>
+      <p>Availability statements reflect Microsoft's published wording as of October 2, 2026, including deep-dive blogs published throughout FabCon & SQLCon week. Follow the roadmap and monthly summaries for rollout changes.</p>
+      <div class="sources">
+        <a class="source-card" href="https://aka.ms/FabCon-SQLCon-Barcelona" target="_blank" rel="noopener"><strong>Barcelona keynote blog ↗</strong><span>The authoritative event overview and announcement recap.</span></a>
+        <a class="source-card" href="https://aka.ms/Fabric-September-26" target="_blank" rel="noopener"><strong>Fabric September 2026 summary ↗</strong><span>The detailed monthly roundup across Fabric workloads.</span></a>
+        <a class="source-card" href="https://aka.ms/PowerBI-September-26" target="_blank" rel="noopener"><strong>Power BI September 2026 summary ↗</strong><span>Power BI features, release details, and rollout notes.</span></a>
+        <a class="source-card" href="https://aka.ms/sqlconnews" target="_blank" rel="noopener"><strong>SQLCon Barcelona announcement index ↗</strong><span>Full list of SQL and database announcements from the week.</span></a>
+        <a class="source-card" href="https://aka.ms/Fabric-Roadmap" target="_blank" rel="noopener"><strong>Microsoft Fabric roadmap ↗</strong><span>Current planned dates and feature status updates.</span></a>
+        <a class="source-card" href="https://blog.fabric.microsoft.com/en-US/blog/" target="_blank" rel="noopener"><strong>Fabric Updates blog ↗</strong><span>Ongoing product announcements and documentation.</span></a>
+        <a class="source-card" href="https://techcommunity.microsoft.com/category/azuredatabases" target="_blank" rel="noopener"><strong>Azure Data Tech Community ↗</strong><span>Database engineering announcements and guidance.</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="shell footer-row">
+      <span>Community reference page · Microsoft product names and trademarks belong to Microsoft.</span>
+      <span>Compiled from official Microsoft sources · October 2, 2026</span>
+    </div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite">Page link copied</div>
+
+  <script>
+    const LINKS = {
+      keynote: "https://aka.ms/FabCon-SQLCon-Barcelona",
+      analytics: "https://aka.ms/Analytics-EU26",
+      powerbi: "https://aka.ms/PowerBI-EU26",
+      rayfin: "https://aka.ms/Rayfin-FabConEU26-blog",
+      onelake: "https://aka.ms/OneLake-EU26",
+      rti: "https://aka.ms/FabConBarcelonaBlog",
+      iq: "https://aka.ms/FabricIQ-EU26",
+      platform: "https://aka.ms/Fabric-Platform-Barcelona-2026",
+      sql: "https://aka.ms/SQLConEU26-databases-blog",
+      ssonal: "https://aka.ms/SQLConEU26-SSonAL-blog",
+      sqlnews: "https://aka.ms/sqlconnews",
+      planning: "https://aka.ms/Planning-EU26",
+      policies: "https://aka.ms/policies-EU26",
+      roadmap: "https://aka.ms/Fabric-Roadmap"
+    };
+
+    const releases = [
+      {
+        title: "Fabric IQ in Microsoft Copilot Chat and Cowork",
+        category: "AI & Copilot", status: "ga",
+        summary: "Microsoft Copilot can now use governed business context from Fabric IQ and trusted Power BI semantic models to answer business questions.",
+        why: "Brings analytics into the flow of work without requiring users to leave Copilot.",
+        availability: "Generally available; no additional AI token costs stated.",
+        tags: ["Fabric IQ", "Microsoft Copilot", "Power BI"],
+        source: LINKS.keynote, deepDive: LINKS.analytics
+      },
+      {
+        title: "Fabric IQ in the new Copilot Code experience",
+        category: "AI & Copilot", status: "soon",
+        summary: "The new Copilot Code experience will use Fabric IQ context so users can build solutions grounded in shared business definitions and metrics.",
+        why: "Extends governed business context from analysis into solution creation.",
+        availability: "Coming soon through the Frontier program.",
+        tags: ["Fabric IQ", "Copilot Code", "Frontier"],
+        source: LINKS.keynote, deepDive: LINKS.iq
+      },
+      {
+        title: "Fabric IQ MCP",
+        category: "AI & Copilot", status: "ga",
+        summary: "Creators can reach the same conversational analytics that power Copilot through an MCP endpoint, usable from custom development environments and external MCP clients.",
+        why: "Extends governed Fabric IQ grounding beyond Microsoft 365 Copilot into any MCP-compatible tool or agent.",
+        availability: "Generally available.",
+        tags: ["Fabric IQ", "MCP", "Developer tools"],
+        source: LINKS.keynote, deepDive: LINKS.analytics
+      },
+      {
+        title: "Fabric data agents in Microsoft Copilot Studio",
+        category: "AI & Copilot", status: "ga",
+        summary: "Fabric data agents are now generally available as a grounding source in Microsoft Copilot Studio, with improvements in ontology awareness, relationship understanding, and topic-aware guidance.",
+        why: "Lets Copilot Studio makers build agents that reason over governed Fabric business context out of the box.",
+        availability: "Generally available.",
+        tags: ["Data agents", "Copilot Studio", "Ontologies"],
+        source: LINKS.keynote, deepDive: LINKS.analytics
+      },
+      {
+        title: "Microsoft 365 data in Copilot for Power BI",
+        category: "AI & Copilot", status: "announced",
+        summary: "The Microsoft Copilot experience is coming directly to Copilot in Power BI, allowing richer responses that draw on M365 data alongside Power BI content.",
+        why: "Reduces context switching between Microsoft 365 and Power BI for everyday analysis questions.",
+        availability: "Announced; check the Fabric Analytics deep-dive for rollout details.",
+        tags: ["Microsoft 365", "Copilot", "Power BI"],
+        source: LINKS.keynote, deepDive: LINKS.analytics
+      },
+      {
+        title: "Governed Copilot controls: sensitivity labels, DLP, and Restrict from Copilot",
+        category: "AI & Copilot", status: "announced",
+        summary: "Sensitivity labels, DLP policies, and information protection controls now flow into Microsoft Copilot experiences, and a new Restrict from Copilot setting lets admins control which semantic models can be used by AI.",
+        why: "Lets governance travel with the data as more Copilot experiences ground answers in semantic models.",
+        availability: "Announced as part of the Fabric Analytics platform updates.",
+        tags: ["Sensitivity labels", "DLP", "Admin controls"],
+        source: LINKS.keynote, deepDive: LINKS.analytics
+      },
+      {
+        title: "Agentic app creation in Power BI Desktop",
+        category: "Power BI & Fabric IQ", status: "soon",
+        summary: "Start with a trusted semantic model, describe the app in natural language, preview and edit it live, then publish it to Fabric. Apps can accept input, write back data, and preserve shared state.",
+        why: "Moves Power BI from insight consumption toward operational app creation.",
+        availability: "Preview in the coming weeks for Pro, Premium Per User, and Fabric capacity customers; up to 1 GB per app for Pro and PPU.",
+        tags: ["Power BI Desktop", "Fabric Apps", "Writeback"],
+        source: LINKS.keynote, deepDive: LINKS.powerbi
+      },
+      {
+        title: "Fabric Apps included with Power BI Pro",
+        category: "Power BI & Fabric IQ", status: "announced",
+        summary: "Fabric Apps will be included with Power BI Pro, giving existing Power BI creators a direct licensing path from reports to purpose-built data applications.",
+        why: "Removes a licensing barrier so Pro customers can build operational apps without a separate Fabric capacity purchase.",
+        availability: "Announced; follow the Power BI deep-dive for availability timing.",
+        tags: ["Power BI Pro", "Fabric Apps", "Licensing"],
+        source: LINKS.keynote, deepDive: LINKS.powerbi
+      },
+      {
+        title: "Semantic views in OneLake",
+        category: "Power BI & Fabric IQ", status: "preview",
+        summary: "An early look at a new capability to define governed business metrics and semantics directly where data lives in OneLake, reusable across and beyond Fabric.",
+        why: "Brings the semantic layer closer to the data itself, making shared business definitions open, reusable, and interoperable.",
+        availability: "Early look; follow the Fabric Analytics deep-dive for preview timing.",
+        tags: ["Semantic views", "OneLake", "Semantic layer"],
+        source: LINKS.keynote, deepDive: LINKS.analytics
+      },
+      {
+        title: "GPU-accelerated query execution in Fabric Data Warehouse",
+        category: "Data Engineering", status: "preview",
+        summary: "NVIDIA-accelerated query execution, based on the CoddSpeed research project, speeds up many analytical workloads without requiring changes to data or SQL.",
+        why: "Helps the warehouse keep pace with the high-concurrency query patterns AI and agentic experiences create.",
+        availability: "Public preview, enabled at the workspace level.",
+        tags: ["Data Warehouse", "GPU", "NVIDIA", "Performance"],
+        source: LINKS.keynote, deepDive: LINKS.analytics
+      },
+      {
+        title: "Fabric Apps production enhancements",
+        category: "Developer & Apps", status: "announced",
+        summary: "Rayfin SDK and CLI apps can connect directly to warehouses, SQL databases, lakehouses, and semantic models while preserving permissions and business logic.",
+        why: "Reduces the infrastructure work required to move AI prototypes into governed production apps.",
+        availability: "Latest enhancements announced; check the deep-dive for individual rollout status.",
+        tags: ["Rayfin SDK", "TypeScript", "Secret Store", "PostgreSQL"],
+        source: LINKS.keynote, deepDive: LINKS.rayfin
+      },
+      {
+        title: "IQ sharing",
+        category: "OneLake & Integration", status: "preview",
+        summary: "Securely share governed tables, files, Markdown agent instructions, and RDF ontologies across teams, customers, partners, and ecosystems.",
+        why: "Makes reusable data products include both data and the context agents need to reason over it.",
+        availability: "Preview; native Fabric IQ ontology and Power BI semantic model support is on the roadmap.",
+        tags: ["OneLake", "Data sharing", "RDF", "Agent context"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "Salesforce Data Cloud 360 integration",
+        category: "OneLake & Integration", status: "preview",
+        summary: "Bidirectional integration brings Salesforce data into the unified data estate without moving or duplicating it.",
+        why: "Makes Salesforce data available across Fabric analytics, AI, and Fabric data agents.",
+        availability: "Preview.",
+        tags: ["Salesforce", "OneLake", "Zero copy"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "Google BigQuery mirroring",
+        category: "OneLake & Integration", status: "ga",
+        summary: "Native mirroring makes Google BigQuery data available through OneLake for cross-cloud analytics and AI.",
+        why: "Reduces duplicate pipelines and copies in multi-cloud data estates.",
+        availability: "Generally available.",
+        tags: ["BigQuery", "Mirroring", "Multi-cloud"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "Deeper Dynamics 365 Business Central integration",
+        category: "OneLake & Integration", status: "announced",
+        summary: "A tighter connection between Dynamics 365 Business Central and OneLake expands access to operational business data.",
+        why: "Helps organizations combine ERP context with analytics and AI scenarios.",
+        availability: "Announced; follow the OneLake deep-dive and roadmap for dates.",
+        tags: ["Dynamics 365", "Business Central", "OneLake"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "Expanded OneLake ecosystem: Atlan, dbt, and ClickHouse",
+        category: "OneLake & Integration", status: "ga",
+        summary: "Atlan's native Microsoft Fabric connector is now generally available with deeper lineage across semantic models and Spark; dbt workflows can transform OneLake data; ClickHouse can read OneLake Iceberg tables directly via Table APIs.",
+        why: "Keeps OneLake open to the governance, transformation, and analytics tools teams already use.",
+        availability: "Atlan connector and ClickHouse Iceberg reads are generally available; dbt integration status varies.",
+        tags: ["Atlan", "dbt", "ClickHouse", "Lineage"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "ClickHouse workload in Microsoft Fabric",
+        category: "OneLake & Integration", status: "preview",
+        summary: "A dedicated ClickHouse Cloud service on Azure, with an embedded SQL console inside Fabric, that synchronizes OneLake tables as accelerated point-in-time copies while OneLake remains the source of truth.",
+        why: "Gives developers responsive, interactive analytics and AI agent experiences without leaving Fabric.",
+        availability: "Public preview.",
+        tags: ["ClickHouse", "Fabric workload", "Analytics"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "Teradata integration with OneLake Table APIs",
+        category: "OneLake & Integration", status: "announced",
+        summary: "Teradata Autonomous Knowledge Platform can query OneLake tables in place using standard Apache Iceberg APIs, with cross-platform authentication and access controls handled natively.",
+        why: "Lets enterprises run Teradata's enterprise AI directly on OneLake data without ETL, duplication, or migration.",
+        availability: "Announced; built on open Apache Iceberg standards.",
+        tags: ["Teradata", "Apache Iceberg", "OneLake Table APIs"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "LakeSail Cloud for OneLake",
+        category: "OneLake & Integration", status: "announced",
+        summary: "Rust-native Spark compatibility for Delta Lake and Apache Iceberg tables, so teams can use Spark SQL, DataFrame, and Python workloads against OneLake without separate connectors.",
+        why: "Adds another high-performance processing engine option for teams already invested in Spark code.",
+        availability: "Announced partner integration.",
+        tags: ["LakeSail", "Spark", "Rust", "Delta Lake"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "Version-aware OneLake shortcuts with lakeFS",
+        category: "OneLake & Integration", status: "announced",
+        summary: "OneLake shortcuts can now connect to the latest data on a lakeFS branch or reference a specific immutable commit for reproducible reports, experiments, and audits.",
+        why: "Avoids building separate pipelines just to copy and maintain data snapshots for reproducibility.",
+        availability: "Announced.",
+        tags: ["lakeFS", "Shortcuts", "Versioning"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "OneLake Table Read API",
+        category: "OneLake & Integration", status: "preview",
+        summary: "Gives AI agents and applications secure, serverless access to Delta Lake and Apache Iceberg tables without SQL, built on open-source Apache Arrow with OneLake security enforced on every query.",
+        why: "Makes it simpler for developers to integrate governed enterprise data directly into AI agents and applications.",
+        availability: "Preview.",
+        tags: ["OneLake", "Apache Arrow", "AI agents"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "OneLake catalog integration in Excel",
+        category: "OneLake & Integration", status: "ga",
+        summary: "Business users can discover and analyze governed Fabric data directly from Excel through the modern Get Data experience.",
+        why: "Reduces the steps between discovering data and analyzing it in a familiar tool.",
+        availability: "Generally available.",
+        tags: ["Excel", "OneLake catalog", "Get Data"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "Microsoft Foundry integration with OneLake catalog",
+        category: "OneLake & Integration", status: "announced",
+        summary: "Foundry users can explore their data estate, including metadata, endorsements, sensitivity labels, and descriptions, and add OneLake items to Knowledge with a single selection.",
+        why: "Simplifies grounding Foundry-built AI solutions in governed OneLake data.",
+        availability: "Announced integration.",
+        tags: ["Microsoft Foundry", "OneLake catalog", "Knowledge"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "OneLake security: redesigned View users in role",
+        category: "Operations & Governance", status: "ga",
+        summary: "A redesigned permissions-auditing experience shows who can access a specific table and what data an individual user can see, with multi-role assignment and revocation from the same view.",
+        why: "Simplifies reviewing and managing access as OneLake data usage grows.",
+        availability: "Generally available.",
+        tags: ["OneLake security", "Permissions", "Auditing"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "Snowflake Security Roles Replication",
+        category: "Operations & Governance", status: "preview",
+        summary: "Mirroring for Snowflake can now replicate source-defined roles and permissions alongside the data and translate them into OneLake security.",
+        why: "Removes the need to manually rebuild access controls after mirroring Snowflake data into OneLake.",
+        availability: "Public preview.",
+        tags: ["Snowflake", "Mirroring", "OneLake security"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "Policies in Fabric",
+        category: "Operations & Governance", status: "preview",
+        summary: "Precise, attribute-based governance controls for scenarios like item creation and workspace security, with external data sharing policies coming soon, centralized management, and CI/CD support.",
+        why: "Moves governance beyond broad admin on/off switches toward granular, attribute-based rules.",
+        availability: "Preview; item creation and workspace security available at launch.",
+        tags: ["Policies", "Governance", "CI/CD"],
+        source: LINKS.keynote, deepDive: LINKS.policies
+      },
+      {
+        title: "Outbound access protection for OneLake shortcuts",
+        category: "Operations & Governance", status: "ga",
+        summary: "Gives Fabric administrators control over which external data sources and endpoints shortcuts in a workspace can connect to, reducing the risk of unintended data exfiltration.",
+        why: "Closes a governance gap as more workspaces connect outward through shortcuts.",
+        availability: "Generally available.",
+        tags: ["OneLake shortcuts", "Security", "Data exfiltration"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "Govern Skills for Fabric",
+        category: "Developer & Apps", status: "announced",
+        summary: "Lets AI coding assistants such as GitHub Copilot discover existing Fabric items and tables through the OneLake catalog, supporting a find-before-you-build approach.",
+        why: "Helps developers reuse governed data before creating new assets or writing duplicate code.",
+        availability: "Announced.",
+        tags: ["GitHub Copilot", "OneLake catalog", "Governance"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "Expanding Fabric partner workloads",
+        category: "OneLake & Integration", status: "announced",
+        summary: "New partner workloads bring specialized capabilities into Fabric on OneLake data, including Esri ArcGIS Maps for spatial analysis, Celonis process intelligence, Telmai data reliability monitoring, Spectral Core database migration, Financial Fabric capital markets data, IntuigenceAI engineering knowledge graphs, and Metropolis VoiceLake communications analytics.",
+        why: "Extends what organizations can analyze, manage, and act on in Fabric without leaving the platform.",
+        availability: "Mix of generally available and preview partner workloads; browse the Fabric Workload Hub for each one's status.",
+        tags: ["Partner ecosystem", "Esri", "Celonis", "Telmai"],
+        source: LINKS.keynote, deepDive: LINKS.onelake
+      },
+      {
+        title: "Data engineering agent",
+        category: "Data Engineering", status: "preview",
+        summary: "A governed autonomous agent, built on technology from Osmos, that plans and executes migrations, lakehouse modernization, complex ETL, data preparation, and performance optimization.",
+        why: "Lets engineers define outcomes and guardrails while the agent executes long-running work and validates results.",
+        availability: "Preview across Fabric and developer tools including VS Code, GitHub Copilot, Codex, and Claude Code.",
+        tags: ["Osmos", "ETL", "Migration", "VS Code"],
+        source: LINKS.keynote, deepDive: LINKS.analytics
+      },
+      {
+        title: "Copilot for Real-Time Dashboards",
+        category: "Real-Time Intelligence", status: "announced",
+        summary: "Create Real-Time Dashboards by describing what you want to understand in natural language.",
+        why: "Shortens the path from live operational data to a useful monitoring experience.",
+        availability: "Announced; consult the Real-Time Intelligence deep-dive for rollout details.",
+        tags: ["Real-Time Dashboard", "Copilot", "Natural language"],
+        source: LINKS.keynote, deepDive: LINKS.rti
+      },
+      {
+        title: "Copilot for eventhouse administration",
+        category: "Real-Time Intelligence", status: "announced",
+        summary: "Use natural language for eventhouse tasks such as creating tables, configuring policies, managing schemas, and inspecting cluster state.",
+        why: "Makes real-time data administration faster and more accessible.",
+        availability: "Announced, including new schema and optimization recommendations.",
+        tags: ["Eventhouse", "Administration", "Optimization"],
+        source: LINKS.keynote, deepDive: LINKS.rti
+      },
+      {
+        title: "Agentic ontology creation",
+        category: "Power BI & Fabric IQ", status: "announced",
+        summary: "Generate ontologies from semantic models, OneLake data, and context documents; define rules in natural language and reuse established Power BI measures.",
+        why: "Reduces the manual effort needed to capture governed business concepts, relationships, and rules.",
+        availability: "Announced; check the Fabric IQ deep-dive for rollout details.",
+        tags: ["Ontology", "Semantic models", "Power BI measures"],
+        source: LINKS.keynote, deepDive: LINKS.iq
+      },
+      {
+        title: "Apache Ossie (incubating) commitment",
+        category: "Power BI & Fabric IQ", status: "announced",
+        summary: "Microsoft reaffirmed support for the community-led, vendor-neutral standard for exchanging semantic metadata across analytics, AI, and BI platforms.",
+        why: "Aims to make semantic context portable and reusable across vendors, including work with Snowflake.",
+        availability: "Open-source incubating project and industry commitment.",
+        tags: ["Apache Ossie", "Semantic metadata", "Open standard"],
+        source: LINKS.keynote, deepDive: LINKS.powerbi
+      },
+      {
+        title: "Data agents grounded in Fabric IQ ontologies",
+        category: "AI & Copilot", status: "announced",
+        summary: "Fabric data agents can use ontology concepts and relationships, while build-agent-with-AI mode can draw from semantic models, documents, glossaries, and data dictionaries.",
+        why: "Improves the accuracy and explainability of agent answers with richer governed context.",
+        availability: "Enhancements announced; individual capability status may vary.",
+        tags: ["Data agents", "Ontologies", "Grounding"],
+        source: LINKS.keynote, deepDive: LINKS.analytics
+      },
+      {
+        title: "Operations agents: root-cause analysis",
+        category: "Operations & Governance", status: "preview",
+        summary: "Operations agents autonomously investigate operational signals, identify likely root causes, and recommend actions.",
+        why: "Helps data professionals and administrators diagnose issues faster.",
+        availability: "New investigation capabilities in preview.",
+        tags: ["Operations agent", "Root cause", "Troubleshooting"],
+        source: LINKS.keynote, deepDive: LINKS.rti
+      },
+      {
+        title: "Operations agents: pre-approved actions",
+        category: "Operations & Governance", status: "preview",
+        summary: "Automate repeatable operational responses using pre-approved actions while keeping human oversight and control.",
+        why: "Moves operations agents from diagnosis toward safe, governed remediation.",
+        availability: "Preview.",
+        tags: ["Automation", "Human oversight", "Operations agent"],
+        source: LINKS.keynote, deepDive: LINKS.analytics
+      },
+      {
+        title: "Observability in Fabric",
+        category: "Operations & Governance", status: "preview",
+        summary: "A unified observability experience spanning cross-workspace monitoring, the monitor hub, Activator-powered job alerts, capacity views, and operations agents.",
+        why: "Consolidates telemetry and helps teams detect issues before they affect data and AI workloads.",
+        availability: "Preview; workspace telemetry can be consolidated in one eventhouse with custom endpoints, retention, and caching.",
+        tags: ["Monitor hub", "Activator", "Capacity", "Eventhouse"],
+        source: LINKS.keynote, deepDive: LINKS.platform
+      },
+      {
+        title: "On-demand billing across Fabric workloads",
+        category: "Operations & Governance", status: "announced",
+        summary: "Consumption-based billing expands beyond Spark so compute can scale up and down with demand and customers pay for what they use.",
+        why: "Better aligns Fabric cost with variable or intermittent workload usage.",
+        availability: "Announced; follow the platform deep-dive for supported workloads and rollout.",
+        tags: ["Billing", "Consumption", "Autoscale"],
+        source: LINKS.keynote, deepDive: LINKS.platform
+      },
+      {
+        title: "Fabric zero-provisioned",
+        category: "Operations & Governance", status: "announced",
+        summary: "A new way to get started with Fabric and OneLake without an upfront capacity commitment.",
+        why: "Lowers the entry barrier for teams beginning with Fabric.",
+        availability: "Announced with on-demand billing.",
+        tags: ["OneLake", "Capacity", "Getting started"],
+        source: LINKS.keynote, deepDive: LINKS.platform
+      },
+      {
+        title: "Microsoft Fabric in Microsoft 365 GCC High",
+        category: "Operations & Governance", status: "announced",
+        summary: "Fabric is expanding to Microsoft 365 Government Community Cloud High for organizations with United States sovereign cloud and compliance requirements.",
+        why: "Extends Fabric to additional regulated and government scenarios.",
+        availability: "Expansion announced; consult official guidance for service timing and scope.",
+        tags: ["GCC High", "Sovereign cloud", "Compliance"],
+        source: LINKS.keynote, deepDive: LINKS.platform
+      },
+      {
+        title: "Database Hub in Fabric",
+        category: "Databases & SQL", status: "preview",
+        summary: "Brings inventory, health, performance, security, risk, and optimization signals into one centralized view across SQL Server, Azure SQL, PostgreSQL, Cosmos DB, and SQL database in Fabric, with database agents actionable directly from the hub.",
+        why: "Brings management of a mixed database estate into one Fabric experience.",
+        availability: "Public preview, advancing from the early access announced in Atlanta.",
+        tags: ["Database Hub", "Azure SQL", "PostgreSQL", "Cosmos DB"],
+        source: LINKS.keynote, deepDive: LINKS.sql
+      },
+      {
+        title: "Database agents for SQL and PostgreSQL",
+        category: "Databases & SQL", status: "preview",
+        summary: "Specialist agents in Database Hub (SQL) and VS Code (PostgreSQL) reason over database signals to help administrators understand bottlenecks, identify optimization opportunities, and carry actions forward within guardrails.",
+        why: "Brings AI-assisted operations directly into database management workflows.",
+        availability: "Preview, starting with SQL in Database Hub and PostgreSQL in VS Code.",
+        tags: ["Database agents", "SQL", "PostgreSQL", "VS Code"],
+        source: LINKS.keynote, deepDive: LINKS.sql
+      },
+      {
+        title: "Serverless auto-pause for Azure SQL Hyperscale",
+        category: "Databases & SQL", status: "preview",
+        summary: "Hyperscale compute automatically pauses during inactivity and resumes when workloads return.",
+        why: "Can reduce compute costs for development, test, and intermittent workloads.",
+        availability: "Preview.",
+        tags: ["Azure SQL", "Hyperscale", "Serverless"],
+        source: LINKS.keynote, deepDive: LINKS.sql
+      },
+      {
+        title: "Azure SQL Hyperscale 160 and 192 vCore compute",
+        category: "Databases & SQL", status: "ga",
+        summary: "Larger 160 and 192 vCore Premium-series compute options increase scale and concurrency for demanding, mission-critical applications.",
+        why: "Supports larger transactional workloads without changing the database platform.",
+        availability: "Generally available.",
+        tags: ["Azure SQL", "Hyperscale", "Scale"],
+        source: LINKS.keynote, deepDive: LINKS.sql
+      },
+      {
+        title: "Denser Azure SQL Hyperscale elastic pools",
+        category: "Databases & SQL", status: "preview",
+        summary: "Higher-density elastic pools provide better cost efficiency as Hyperscale databases are consolidated.",
+        why: "Improves consolidation and resource sharing across groups of Hyperscale databases.",
+        availability: "Preview.",
+        tags: ["Azure SQL", "Elastic pools", "Consolidation"],
+        source: LINKS.keynote, deepDive: LINKS.sql
+      },
+      {
+        title: "Azure Arc migration experience for Hyperscale",
+        category: "Databases & SQL", status: "preview",
+        summary: "A centralized workflow for assessment, provisioning, migration, validation, and cutover brings a simpler path to Azure SQL Database Hyperscale.",
+        why: "Reduces the manual coordination typically required to migrate databases into Hyperscale.",
+        availability: "Preview.",
+        tags: ["Azure Arc", "Migration", "Hyperscale"],
+        source: LINKS.keynote, deepDive: LINKS.sql
+      },
+      {
+        title: "DiskANN vector indexes",
+        category: "Databases & SQL", status: "ga",
+        summary: "High-performance vector search is built into Azure SQL Hyperscale, Azure SQL Managed Instance, and SQL database in Fabric, now with full DML support so vector-indexed tables stay automatically updated as data changes.",
+        why: "Supports semantic search, recommendations, and RAG without moving data to a separate vector store.",
+        availability: "Generally available.",
+        tags: ["DiskANN", "Vector search", "RAG", "SQL"],
+        source: LINKS.keynote, deepDive: LINKS.sql
+      },
+      {
+        title: "SQL Server on Azure Local",
+        category: "Databases & SQL", status: "ga",
+        summary: "Run SQL Server with Azure capabilities in customer-controlled local environments close to applications and operations, for both connected and disconnected deployments.",
+        why: "Supports low-latency, regulated, edge, and data-residency scenarios.",
+        availability: "Generally available.",
+        tags: ["SQL Server", "Azure Local", "Hybrid"],
+        source: LINKS.keynote, deepDive: LINKS.ssonal
+      },
+      {
+        title: "SQL Server on Azure Local Disconnected Operations",
+        category: "Databases & SQL", status: "ga",
+        summary: "The Azure Local experience extends to environments where cloud connectivity is unavailable, restricted, or intentionally disconnected.",
+        why: "Enables modern SQL workloads in sovereign, edge, and isolated environments.",
+        availability: "Generally available.",
+        tags: ["ALDO", "Disconnected", "Sovereign", "SQL Server"],
+        source: LINKS.keynote, deepDive: LINKS.ssonal
+      },
+      {
+        title: "Foundry Local on Azure Local",
+        category: "Databases & SQL", status: "preview",
+        summary: "Lets teams build AI experiences close to their data on Azure Local, keeping applications, databases, and AI models inside the customer-controlled environment.",
+        why: "Makes AI innovation possible even where sovereignty requirements restrict what can leave the environment.",
+        availability: "Preview.",
+        tags: ["Foundry Local", "Azure Local", "Sovereign AI"],
+        source: LINKS.keynote, deepDive: LINKS.ssonal
+      },
+      {
+        title: "SSMS Agent Mode for GitHub Copilot",
+        category: "Developer & Apps", status: "ga",
+        summary: "Lets developers reason across database objects and complete multistep tasks from a single prompt, investigating dependencies, analyzing execution plans, and generating and reviewing DDL changes.",
+        why: "Brings agentic AI assistance into a tool DBAs and developers already use daily.",
+        availability: "Generally available.",
+        tags: ["SSMS", "GitHub Copilot", "Agent Mode"],
+        source: LINKS.keynote, deepDive: LINKS.sql
+      },
+      {
+        title: "SQL Projects, Schema Compare, and SQL Formatter in SSMS",
+        category: "Developer & Apps", status: "ga",
+        summary: "SQL Projects and Schema Compare are generally available in SSMS, alongside SQL Formatter in SSMS and Visual Studio Code, for bringing database changes into source control with consistent T-SQL.",
+        why: "Standardizes database change workflows across SSMS and VS Code.",
+        availability: "Generally available.",
+        tags: ["SSMS", "Schema Compare", "T-SQL", "VS Code"],
+        source: LINKS.keynote, deepDive: LINKS.sql
+      },
+      {
+        title: "Data API Builder: vector and JSON support",
+        category: "Developer & Apps", status: "announced",
+        summary: "Data API Builder adds vector and JSON support, making it easier to connect SQL data to modern applications and agents through REST, GraphQL, and MCP endpoints.",
+        why: "Extends SQL data to AI and app-building workflows without writing custom API layers.",
+        availability: "Announced.",
+        tags: ["Data API Builder", "Vector", "JSON", "MCP"],
+        source: LINKS.keynote, deepDive: LINKS.sql
+      }
+    ];
+
+    const statusLabels = {
+      ga: "Generally available",
+      preview: "Preview",
+      soon: "Coming soon",
+      announced: "Announced"
+    };
+    const escapeHtml = value => value.replace(/[&<>"']/g, character => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+    })[character]);
+    const state = { search: "", category: "all", status: "all", view: "grid" };
+
+    function renderStats() {
+      const values = [
+        [releases.length, "tracked Barcelona announcements"],
+        [releases.filter(item => item.status === "ga").length, "generally available"],
+        [releases.filter(item => item.status === "preview").length, "in preview"],
+        [new Set(releases.map(item => item.category)).size, "product areas"]
+      ];
+      document.getElementById("stats").innerHTML = values.map(([value, label]) =>
+        `<div class="stat"><strong>${value}</strong><span>${label}</span></div>`
+      ).join("");
+    }
+
+    function renderCategories() {
+      const select = document.getElementById("category");
+      [...new Set(releases.map(item => item.category))].sort().forEach(category => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        select.appendChild(option);
+      });
+    }
+
+    function getFilteredReleases() {
+      const query = state.search.trim().toLowerCase();
+      return releases.filter(item => {
+        const searchable = [item.title, item.category, item.summary, item.why, item.availability, ...item.tags].join(" ").toLowerCase();
+        return (!query || searchable.includes(query))
+          && (state.category === "all" || item.category === state.category)
+          && (state.status === "all" || item.status === state.status);
+      });
+    }
+
+    function render() {
+      const filtered = getFilteredReleases();
+      document.getElementById("resultCount").textContent =
+        `Showing ${filtered.length} of ${releases.length} announcements`;
+      const grid = document.getElementById("releaseGrid");
+      grid.classList.toggle("list", state.view === "list");
+      if (!filtered.length) {
+        grid.innerHTML = '<div class="empty"><strong>No announcements match these filters.</strong><br>Try a broader search or reset a filter.</div>';
+        return;
+      }
+      grid.innerHTML = filtered.map(item => `
+        <article class="card">
+          <div class="card-top">
+            <span class="category">${escapeHtml(item.category)}</span>
+            <span class="status ${item.status}">${statusLabels[item.status]}</span>
+          </div>
+          <h3>${escapeHtml(item.title)}</h3>
+          <p class="summary">${escapeHtml(item.summary)}</p>
+          <div class="details">
+            <div><strong>Why it matters</strong><span>${escapeHtml(item.why)}</span></div>
+            <div><strong>Availability</strong><span>${escapeHtml(item.availability)}</span></div>
+          </div>
+          <div class="tags">${item.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
+          <div class="card-links">
+            <a href="${item.deepDive}" target="_blank" rel="noopener">Feature deep-dive ↗</a>
+            <a href="${item.source}" target="_blank" rel="noopener">Official announcement ↗</a>
+            ${item.status !== "ga" ? `<a href="${LINKS.roadmap}" target="_blank" rel="noopener">Roadmap ↗</a>` : ""}
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function setView(view) {
+      state.view = view;
+      document.getElementById("gridView").setAttribute("aria-pressed", view === "grid");
+      document.getElementById("listView").setAttribute("aria-pressed", view === "list");
+      render();
+    }
+
+    document.getElementById("search").addEventListener("input", event => {
+      state.search = event.target.value;
+      render();
+    });
+    document.getElementById("category").addEventListener("change", event => {
+      state.category = event.target.value;
+      render();
+    });
+    document.getElementById("status").addEventListener("change", event => {
+      state.status = event.target.value;
+      render();
+    });
+    document.getElementById("gridView").addEventListener("click", () => setView("grid"));
+    document.getElementById("listView").addEventListener("click", () => setView("list"));
+    document.getElementById("shareButton").addEventListener("click", async () => {
+      const toast = document.getElementById("toast");
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        toast.textContent = "Page link copied";
+      } catch {
+        toast.textContent = "Copy unavailable — use your browser address bar";
+      }
+      toast.classList.add("show");
+      window.setTimeout(() => toast.classList.remove("show"), 2400);
+    });
+
+    renderStats();
+    renderCategories();
+    render();
+  </script>
+</body>
+</html>
