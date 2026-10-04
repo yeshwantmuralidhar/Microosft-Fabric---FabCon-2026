@@ -6,6 +6,7 @@ A shareable, self-contained HTML guide to Microsoft Fabric, Power BI, OneLake, A
 
 | File | Description |
 |---|---|
+| [OneLake-Catalog-FabCon-2026-Client-Demo.pptx](./OneLake-Catalog-FabCon-2026-Client-Demo.pptx) | Eight-slide client presentation covering the OneLake Catalog Explore, Govern, and Secure experiences, FabCon 2026 governance updates, a 12-minute demo flow, and a 90-day adoption plan. |
 | [fabcon-2026-barcelona-releases.html](./fabcon-2026-barcelona-releases.html) | Barcelona (Sept 28 – Oct 1, 2026) release guide, themed after the official [FABCON & SQLCON](https://fabriccon.com/) conference brand (deep navy, teal/blue accents). Includes 29 detailed announcement cards with search, filters, and links to official sources. |
 | [fabcon-2026-releases.html](./fabcon-2026-releases.html) | Combined Atlanta + Barcelona release tracker with checklist-style review tracking (tick items off, saved in your browser). |
 
