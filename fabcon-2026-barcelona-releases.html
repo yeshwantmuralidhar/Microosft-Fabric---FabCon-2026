@@ -425,7 +425,7 @@
       <div class="hero-meta">
         <span>Barcelona, Spain</span>
         <span>September 28–October 1, 2026</span>
-        <span>Last updated October 2, 2026</span>
+        <span>Last updated October 11, 2026</span>
       </div>
       <div class="hero-actions">
         <a class="button" href="https://aka.ms/FabCon-SQLCon-Barcelona" target="_blank" rel="noopener">Official announcement ↗</a>
@@ -481,10 +481,10 @@
   <section class="source-section" id="sources">
     <div class="shell">
       <h2>Official sources and deeper reading</h2>
-      <p>Availability statements reflect Microsoft's published wording as of October 2, 2026, including deep-dive blogs published throughout FabCon & SQLCon week. Follow the roadmap and monthly summaries for rollout changes.</p>
+      <p>Availability statements reflect Microsoft's published wording as of October 11, 2026, including the September 2026 Fabric Feature Summary and deep-dive blogs published throughout FabCon & SQLCon week. Follow the roadmap and monthly summaries for rollout changes.</p>
       <div class="sources">
         <a class="source-card" href="https://aka.ms/FabCon-SQLCon-Barcelona" target="_blank" rel="noopener"><strong>Barcelona keynote blog ↗</strong><span>The authoritative event overview and announcement recap.</span></a>
-        <a class="source-card" href="https://aka.ms/Fabric-September-26" target="_blank" rel="noopener"><strong>Fabric September 2026 summary ↗</strong><span>The detailed monthly roundup across Fabric workloads.</span></a>
+        <a class="source-card" href="https://community.fabric.microsoft.com/blog/fbc_fabricupdatesblogs/fabric-september-2026-feature-summary/5325825" target="_blank" rel="noopener"><strong>Fabric September 2026 summary ↗</strong><span>The detailed monthly roundup across Fabric workloads.</span></a>
         <a class="source-card" href="https://aka.ms/PowerBI-September-26" target="_blank" rel="noopener"><strong>Power BI September 2026 summary ↗</strong><span>Power BI features, release details, and rollout notes.</span></a>
         <a class="source-card" href="https://aka.ms/sqlconnews" target="_blank" rel="noopener"><strong>SQLCon Barcelona announcement index ↗</strong><span>Full list of SQL and database announcements from the week.</span></a>
         <a class="source-card" href="https://aka.ms/Fabric-Roadmap" target="_blank" rel="noopener"><strong>Microsoft Fabric roadmap ↗</strong><span>Current planned dates and feature status updates.</span></a>
@@ -497,7 +497,7 @@
   <footer>
     <div class="shell footer-row">
       <span>Community reference page · Microsoft product names and trademarks belong to Microsoft.</span>
-      <span>Compiled from official Microsoft sources · October 2, 2026</span>
+      <span>Compiled from official Microsoft sources · October 11, 2026</span>
     </div>
   </footer>
   <div class="toast" id="toast" role="status" aria-live="polite">Page link copied</div>
@@ -517,6 +517,7 @@
       sqlnews: "https://aka.ms/sqlconnews",
       planning: "https://aka.ms/Planning-EU26",
       policies: "https://aka.ms/policies-EU26",
+      september: "https://community.fabric.microsoft.com/blog/fbc_fabricupdatesblogs/fabric-september-2026-feature-summary/5325825",
       roadmap: "https://aka.ms/Fabric-Roadmap"
     };
 
@@ -613,12 +614,12 @@
       },
       {
         title: "Fabric Apps production enhancements",
-        category: "Developer & Apps", status: "announced",
-        summary: "Rayfin SDK and CLI apps can connect directly to warehouses, SQL databases, lakehouses, and semantic models while preserving permissions and business logic.",
-        why: "Reduces the infrastructure work required to move AI prototypes into governed production apps.",
-        availability: "Latest enhancements announced; check the deep-dive for individual rollout status.",
-        tags: ["Rayfin SDK", "TypeScript", "Secret Store", "PostgreSQL"],
-        source: LINKS.keynote, deepDive: LINKS.rayfin
+        category: "Developer & Apps", status: "preview",
+        summary: "Fabric Apps now support server-side user-defined functions, secret-backed data connectors, observability, stronger security, and additional regions, alongside direct connections to Fabric data sources.",
+        why: "Reduces the infrastructure work required to move governed data and AI prototypes into production applications.",
+        availability: "Preview.",
+        tags: ["Fabric Apps", "Functions", "Connectors", "Secret Store"],
+        source: LINKS.september, deepDive: LINKS.rayfin
       },
       {
         title: "IQ sharing",
@@ -793,12 +794,12 @@
       },
       {
         title: "Copilot for Real-Time Dashboards",
-        category: "Real-Time Intelligence", status: "announced",
+        category: "Real-Time Intelligence", status: "preview",
         summary: "Create Real-Time Dashboards by describing what you want to understand in natural language.",
         why: "Shortens the path from live operational data to a useful monitoring experience.",
-        availability: "Announced; consult the Real-Time Intelligence deep-dive for rollout details.",
+        availability: "Preview.",
         tags: ["Real-Time Dashboard", "Copilot", "Natural language"],
-        source: LINKS.keynote, deepDive: LINKS.rti
+        source: LINKS.september, deepDive: LINKS.rti
       },
       {
         title: "Copilot for eventhouse administration",
@@ -1006,6 +1007,186 @@
         availability: "Announced.",
         tags: ["Data API Builder", "Vector", "JSON", "MCP"],
         source: LINKS.keynote, deepDive: LINKS.sql
+      },
+      {
+        title: "Fabric deployment plans",
+        category: "Operations & Governance", status: "preview",
+        summary: "A new workspace item provides a visual canvas for deploying related Fabric items in an explicit order and running notebooks, pipelines, copy jobs, Dataflow Gen2 items, or data functions before or after deployment.",
+        why: "Makes complex deployments predictable when dependencies cannot be inferred automatically.",
+        availability: "Preview.",
+        tags: ["CI/CD", "Deployment", "Lifecycle management"],
+        source: LINKS.september, deepDive: LINKS.september
+      },
+      {
+        title: "Git integration production workflow upgrades",
+        category: "Operations & Governance", status: "ga",
+        summary: "Compare and commit changes, selective branching, branch workspaces, and bulk export/import APIs are now production-ready, with file-level commit and an admin profile for branch workspaces in preview.",
+        why: "Improves review, conflict resolution, automation, and isolated development across Fabric workloads.",
+        availability: "Core workflow upgrades generally available; file-level commit and the branch workspace admin profile are in preview.",
+        tags: ["Git integration", "Branch workspace", "Source control"],
+        source: LINKS.september, deepDive: LINKS.september
+      },
+      {
+        title: "Fabric Core MCP Server",
+        category: "Developer & Apps", status: "ga",
+        summary: "The Fabric Core MCP Server lets compatible AI development tools discover and work with Fabric items and platform capabilities through a standardized MCP interface.",
+        why: "Gives developers an officially supported way to bring Fabric context and actions into agentic coding workflows.",
+        availability: "Generally available.",
+        tags: ["MCP", "Developer tools", "Fabric platform"],
+        source: LINKS.september, deepDive: LINKS.september
+      },
+      {
+        title: "Data Engineering runtime and connectivity upgrades",
+        category: "Data Engineering", status: "ga",
+        summary: "Custom Live Pools, the Spark connector for SQL databases, high-concurrency Livy API support, and high-concurrency ADO.NET, JDBC, and ODBC drivers are now production-ready.",
+        why: "Improves Spark startup control, SQL connectivity, and concurrent notebook and application workloads.",
+        availability: "Generally available.",
+        tags: ["Spark", "Custom Live Pools", "High concurrency", "SQL connector"],
+        source: LINKS.september, deepDive: LINKS.analytics
+      },
+      {
+        title: "Native JSON acceleration and agentic notebook tooling",
+        category: "Data Engineering", status: "preview",
+        summary: "The Native Execution Engine can accelerate JSON workloads, while a notebook toolkit and the Fabric Data Engineering VS Code extension add support for agentic development with tools such as Codex and Claude Code.",
+        why: "Speeds semi-structured processing and brings assisted engineering workflows closer to notebooks and source code.",
+        availability: "Preview; consult the feature summary for individual integration rollout details.",
+        tags: ["Native Execution Engine", "JSON", "Notebooks", "VS Code"],
+        source: LINKS.september, deepDive: LINKS.analytics
+      },
+      {
+        title: "Spark 4.1 and tensor models on ML endpoints",
+        category: "Data Science", status: "preview",
+        summary: "Fabric machine learning endpoints add Spark 4.1 support and support for serving tensor-based models.",
+        why: "Expands the models and current Spark workloads that data science teams can operationalize in Fabric.",
+        availability: "Preview.",
+        tags: ["Machine learning", "Spark 4.1", "Tensor models", "Endpoints"],
+        source: LINKS.september, deepDive: LINKS.september
+      },
+      {
+        title: "Custom SQL pools and warehouse performance upgrades",
+        category: "Data Engineering", status: "ga",
+        summary: "Fabric Warehouse adds custom SQL pools, statement-type classification, and distributed bitmap filters for greater workload control and faster analytical joins.",
+        why: "Gives administrators more control over warehouse resources while improving query performance.",
+        availability: "Generally available.",
+        tags: ["Fabric Warehouse", "Custom SQL pools", "Bitmap filters"],
+        source: LINKS.september, deepDive: LINKS.analytics
+      },
+      {
+        title: "Warehouse language, deployment, and operations enhancements",
+        category: "Data Engineering", status: "preview",
+        summary: "New analytical functions, T-SQL enhancements, broader scalar UDF support, Fabric User Data Functions integration, and pre/post-deployment scripts expand warehouse development and automation; the SQL DW operations skill is generally available.",
+        why: "Makes warehouse solutions easier to build, deploy, diagnose, and automate end to end.",
+        availability: "Language and deployment enhancements are in preview; the SQL DW operations skill is generally available.",
+        tags: ["T-SQL", "UDF", "Deployment", "Operations"],
+        source: LINKS.september, deepDive: LINKS.analytics
+      },
+      {
+        title: "Business Events and richer live monitoring",
+        category: "Real-Time Intelligence", status: "ga",
+        summary: "Business Events are production-ready, and Real-Time Dashboards add richer visuals and denser layouts for operational monitoring.",
+        why: "Helps teams model meaningful business signals and monitor more information in a single live view.",
+        availability: "Generally available.",
+        tags: ["Business Events", "Real-Time Dashboard", "Monitoring"],
+        source: LINKS.september, deepDive: LINKS.rti
+      },
+      {
+        title: "Event Schema Set and schema-aware Eventstreams",
+        category: "Real-Time Intelligence", status: "ga",
+        summary: "Fabric Event Schema Set and Schema Registry are production-ready, with schema-aware Eventstreams, custom stream connectors, and workspace private links available in preview.",
+        why: "Adds governed event contracts and safer, more extensible streaming ingestion.",
+        availability: "Schema Set and Schema Registry generally available; schema-aware Eventstreams, custom connectors, and workspace private links are in preview.",
+        tags: ["Event Schema Set", "Schema Registry", "Eventstream"],
+        source: LINKS.september, deepDive: LINKS.rti
+      },
+      {
+        title: "Activator production actions and smarter conditions",
+        category: "Real-Time Intelligence", status: "ga",
+        summary: "Activator can trigger Copy jobs, Dataflows, and user-defined functions, and now supports stateful conditions and dynamic thresholds for event-based rules.",
+        why: "Turns live signals into richer automated actions without requiring a separate orchestration service.",
+        availability: "Generally available.",
+        tags: ["Activator", "Automation", "Dynamic thresholds"],
+        source: LINKS.september, deepDive: LINKS.rti
+      },
+      {
+        title: "Eventhouse enterprise security and sharing",
+        category: "Real-Time Intelligence", status: "ga",
+        summary: "Eventhouse adds granular sharing for shortcut databases, workspace outbound access protection, workspace-level private links, cluster-level customer-managed keys, and entity diagrams.",
+        why: "Strengthens isolation, encryption, governed collaboration, and schema understanding for real-time estates.",
+        availability: "Generally available.",
+        tags: ["Eventhouse", "Private Link", "Customer-managed keys", "Sharing"],
+        source: LINKS.september, deepDive: LINKS.rti
+      },
+      {
+        title: "Fabric Maps and geospatial live analytics",
+        category: "Real-Time Intelligence", status: "preview",
+        summary: "Fabric Maps can connect to external geospatial feature services and can be embedded in Real-Time Dashboards.",
+        why: "Brings location context into live operational monitoring and spatial analysis.",
+        availability: "Preview.",
+        tags: ["Fabric Maps", "Geospatial", "Real-Time Dashboard"],
+        source: LINKS.september, deepDive: LINKS.rti
+      },
+      {
+        title: "Fabric data agent visualization and MCP task support",
+        category: "AI & Copilot", status: "ga",
+        summary: "Fabric data agents can return visualizations and execute Model Context Protocol tasks, with additional preview improvements for ontology context, topics, runtime models, larger result sets, and user feedback.",
+        why: "Makes agent answers more useful while broadening the governed context and actions available to them.",
+        availability: "Visualizations and MCP tasks generally available; the additional agent enhancements are in preview.",
+        tags: ["Data agents", "MCP", "Visualizations", "Ontology"],
+        source: LINKS.september, deepDive: LINKS.iq
+      },
+      {
+        title: "Database networking and change-event streaming",
+        category: "Databases & SQL", status: "preview",
+        summary: "Azure Cosmos DB mirroring adds virtual network data gateway support, and SQL database in Fabric can stream change events into real-time scenarios.",
+        why: "Improves private connectivity for mirrored data and reduces the work needed to react to transactional changes.",
+        availability: "Change Event Streaming is in preview; consult the feature summary for Cosmos DB gateway rollout details.",
+        tags: ["Cosmos DB", "SQL database", "Change events", "VNet gateway"],
+        source: LINKS.september, deepDive: LINKS.september
+      },
+      {
+        title: "Pipeline orchestration and monitoring enhancements",
+        category: "OneLake & Integration", status: "preview",
+        summary: "Pipelines add a Lakehouse maintenance activity, retry back-off logic, pipeline-level dependencies with run conditions, richer workspace monitoring, and Fabric Actions and Business Actions activities.",
+        why: "Improves resilience, dependency control, maintenance automation, and operational visibility.",
+        availability: "Lakehouse maintenance and retry back-off are generally available; dependencies, richer monitoring, and actions are in preview.",
+        tags: ["Data pipelines", "Monitoring", "Lakehouse maintenance"],
+        source: LINKS.september, deepDive: LINKS.september
+      },
+      {
+        title: "SharePoint List mirroring",
+        category: "OneLake & Integration", status: "ga",
+        summary: "Fabric can continuously mirror SharePoint List data into OneLake, alongside broader production-ready mirroring capabilities.",
+        why: "Makes collaborative business data available for analytics without building and maintaining custom ingestion pipelines.",
+        availability: "Generally available.",
+        tags: ["SharePoint", "Mirroring", "OneLake"],
+        source: LINKS.september, deepDive: LINKS.september
+      },
+      {
+        title: "Copy Job CDC, SCD Type 2, and audit columns",
+        category: "OneLake & Integration", status: "ga",
+        summary: "Copy Job adds production-ready change data capture, SCD Type 2 processing, audit columns, workspace monitoring, additional source connectors, and expanded Snowflake, Oracle, PostgreSQL, and SharePoint support.",
+        why: "Covers common incremental ingestion and history-tracking patterns with less custom orchestration.",
+        availability: "Generally available; Eventstream source and destination integration is in preview.",
+        tags: ["Copy Job", "CDC", "SCD Type 2", "Audit"],
+        source: LINKS.september, deepDive: LINKS.september
+      },
+      {
+        title: "Dataflow Gen2 collaboration and diagnostics",
+        category: "OneLake & Integration", status: "ga",
+        summary: "Dataflow Gen2 adds My Queries, new data destinations, optimized Lakehouse copy, downloadable diagnostics, and expanded modern evaluator support, with shared queries, data visuals, email, and dynamic destinations in preview.",
+        why: "Improves reuse, troubleshooting, destination flexibility, and collaboration for Power Query transformations.",
+        availability: "Core query, destination, copy, and diagnostics enhancements generally available; collaboration and authoring additions are in preview.",
+        tags: ["Dataflow Gen2", "Power Query", "Diagnostics", "Collaboration"],
+        source: LINKS.september, deepDive: LINKS.september
+      },
+      {
+        title: "Connection governance controls",
+        category: "Operations & Governance", status: "ga",
+        summary: "Authentication and tenant allowlists for data connections, plus admin APIs for cloud connections, provide centralized policy and automation controls.",
+        why: "Helps administrators constrain connection methods and external tenants while managing connections at scale.",
+        availability: "Generally available.",
+        tags: ["Connections", "Governance", "Allowlist", "Admin API"],
+        source: LINKS.september, deepDive: LINKS.september
       }
     ];
 
